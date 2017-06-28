@@ -45,7 +45,6 @@ public class Player {
     }
 
     public String tennisScore() {
-
         return TennisScore.values()[score].toString();
     }
 
