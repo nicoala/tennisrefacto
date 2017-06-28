@@ -1,7 +1,5 @@
 public class TennisGame3 implements TennisGame {
 
-    private int pointsPlayerTwo;
-    private int pointsPlayerOne;
     private Player playerOne;
     private Player playerTwo;
 
@@ -11,28 +9,56 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getScore() {
-        String score;
 
-        if (pointsPlayerOne < 4 && pointsPlayerTwo < 4 && !(pointsPlayerOne + pointsPlayerTwo == 6)) {
+        if (!playerOne.isCloseToWin() && !playerTwo.isCloseToWin()) {
 
-            score = playerOne.tennisScore();
-            return (playerOne.hasSameScore(playerTwo)) ? score + "-All" : score + "-" + playerTwo.tennisScore();
+            return gameBeforeFirstTie();
 
         } else {
-            if (playerOne.hasSameScore(playerTwo)) {
+
+            if (playersTied()) {
                 return TennisScore.DEUCE.toString();
             }
+
             return playerOne.gameOnTheLineVs(playerTwo);
+        }
+    }
+
+    private String gameBeforeFirstTie() {
+        if (playersTiedForFirstTime()) {
+            return TennisScore.DEUCE.toString();
+        } else {
+            return formatGameScore();
+        }
+    }
+
+    private boolean playersTied() {
+        if (playerOne.hasSameScore(playerTwo)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean playersTiedForFirstTime() {
+        if(playerOne.hasSameScore(playerTwo) && playerOne.isCloseToEndOfGame()) {
+            return true;
+        }
+        return false;
+    }
+
+    private String formatGameScore() {
+        if (playerOne.hasSameScore(playerTwo)) {
+            return playerOne.tennisScore() + "-All";
+        } else {
+            return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
         }
     }
 
     public void wonPoint(String playerName) {
         if (playerOne.isNamed(playerName)) {
             playerOne.scores();
-            this.pointsPlayerOne++;
         } else {
             playerTwo.scores();
-            this.pointsPlayerTwo++;
         }
 
     }
