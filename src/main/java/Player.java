@@ -44,20 +44,9 @@ public class Player {
         }
     }
 
-    public String hasScored(String score, TennisScore tennisScore) {
-        if (tennisScore.ordinal() == this.score) {
-            score += tennisScore.toString();
-        }
-        return score;
-    }
-
     public String tennisScore() {
-        String score = "";
 
-        for(TennisScore tennisScore : TennisScore.values()) {
-            score = hasScored(score, tennisScore);
-        }
-
-        return score;
+        return TennisScore.values()[score].toString();
     }
+
 }
