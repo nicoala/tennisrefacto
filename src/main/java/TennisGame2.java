@@ -1,21 +1,25 @@
 public class TennisGame2 implements TennisGame
 {
+    String score = "";
+
     public int P1point = 0;
     public int P2point = 0;
 
     public String P1res = "";
     public String P2res = "";
-    private String player1Name;
-    private String player2Name;
+
+    Player playerOne;
+    Player playerTwo;
 
     public TennisGame2(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+
+        playerOne = new Player(player1Name, 0);
+        playerTwo = new Player(player2Name, 0);
     }
 
     public String getScore(){
-        String score = "";
-        if (P1point == P2point && P1point < 4)
+
+        if (playerOne.hasSameScore(playerTwo) && P1point < 4)
         {
             if (P1point==0)
                 score = "Love";
@@ -23,9 +27,11 @@ public class TennisGame2 implements TennisGame
                 score = "Fifteen";
             if (P1point==2)
                 score = "Thirty";
+
             score += "-All";
         }
-        if (P1point==P2point && P1point>=3)
+
+        if (playerOne.hasSameScore(playerTwo) && playerOne.isCloseToEndOfGame())
             score = "Deuce";
 
         if (P1point > 0 && P2point==0)
@@ -99,34 +105,18 @@ public class TennisGame2 implements TennisGame
         return score;
     }
 
-    public void SetP1Score(int number){
-
-        for (int i = 0; i < number; i++)
-        {
-            P1Score();
-        }
-
-    }
-
-    public void SetP2Score(int number){
-
-        for (int i = 0; i < number; i++)
-        {
-            P2Score();
-        }
-
-    }
-
     public void P1Score(){
+        playerOne.scores();
         P1point++;
     }
 
     public void P2Score(){
+        playerTwo.scores();
         P2point++;
     }
 
     public void wonPoint(String player) {
-        if (player == "player1")
+        if (playerOne.isNamed(player))
             P1Score();
         else
             P2Score();
