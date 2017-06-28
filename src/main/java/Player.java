@@ -8,27 +8,27 @@ public class Player {
         this.score = score;
     }
 
-    public boolean isItsName(String playerName) {
-        return name.equals(playerName);
-    }
-
     public void scores() {
         score++;
+    }
+
+    public boolean isNamed(String playerName) {
+        return name.equals(playerName);
     }
 
     public boolean hasSameScore(Player otherPlayer) {
         return score == otherPlayer.score;
     }
 
-    public int getScore() {
-        return score;
+    public boolean isCloseToEndOfGame() {
+        return score >= 3;
     }
 
     public boolean isCloseToWin() {
         return score >= 4;
     }
 
-    public String closeGame(Player otherPlayer) {
+    public String gameOnTheLineVs(Player otherPlayer) {
         if(Math.abs(score - otherPlayer.score) == 1) {
             return "Advantage " + hasAdvantage(otherPlayer);
         } else {
@@ -42,5 +42,22 @@ public class Player {
         } else {
             return otherPlayer.name;
         }
+    }
+
+    public String hasScored(String score, TennisScore tennisScore) {
+        if (tennisScore.ordinal() == this.score) {
+            score += tennisScore.toString();
+        }
+        return score;
+    }
+
+    public String tennisScore() {
+        String score = "";
+
+        for(TennisScore tennisScore : TennisScore.values()) {
+            score = hasScored(score, tennisScore);
+        }
+
+        return score;
     }
 }
