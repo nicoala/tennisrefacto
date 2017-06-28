@@ -1,71 +1,74 @@
 public class TennisGame1 implements TennisGame {
 
-    private int playerOneScore = 0;
-    private int playerTwoScore = 0;
+    private Player playerOne;
+    private Player playerTwo;
+
+    public TennisGame1(String playerOneName, String playerTwoName) {
+
+        playerOne = new Player(playerOneName, 0);
+        playerTwo = new Player(playerTwoName, 0);
+
+    }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1") {
-            playerOneScore++;
-        }
-        else {
-            playerTwoScore++;
+        if (playerOne.isItsName(playerName)) {
+            playerOne.scores();
+        } else {
+            playerTwo.scores();
         }
     }
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
 
+        if (playerOne.hasSameScore(playerTwo)) {
 
-        if (playerOneScore == playerTwoScore)
-        {
-            switch (playerOneScore)
-            {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
+            score = playersHaveSameScore(score);
 
-            }
-        } else if (playerOneScore >=4 || playerTwoScore >=4) {
-            int minusResult = playerOneScore - playerTwoScore;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
+        } else if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
+
+            score = playerOne.closeGame(playerTwo);
+
         } else {
-            for (int i=1; i<3; i++) {
+            score = formatScore(score);
+        }
 
-                if (i==1) {
-                    tempScore = playerOneScore;
-                } else {
-                    score += "-";
-                    tempScore = playerTwoScore;
-                }
+        return score;
+    }
 
-                switch(tempScore) {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
+    private String playersHaveSameScore(String score) {
+
+        if (playerOne.getScore() >= 3) {
+            score = "Deuce";
+        } else {
+            score = calculateScore(score, playerOne.getScore());
+            score += "-All";
+        }
+
+        return score;
+    }
+
+    private String formatScore(String score) {
+        score = calculateScore(score, playerOne.getScore());
+        score += "-";
+        return calculateScore(score, playerTwo.getScore());
+    }
+
+    private String calculateScore(String score, int playerScore) {
+
+        switch(playerScore) {
+            case 0:
+                score+="Love";
+                break;
+            case 1:
+                score+="Fifteen";
+                break;
+            case 2:
+                score+="Thirty";
+                break;
+            case 3:
+                score+="Forty";
+                break;
         }
 
         return score;
