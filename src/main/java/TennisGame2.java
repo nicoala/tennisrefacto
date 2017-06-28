@@ -6,48 +6,44 @@ public class TennisGame2 implements TennisGame
     Player playerTwo;
 
     public TennisGame2(String player1Name, String player2Name) {
-
         playerOne = new Player(player1Name, 0);
         playerTwo = new Player(player2Name, 0);
     }
 
+    public void wonPoint(String player) {
+        if (playerOne.isNamed(player))
+            playerOne.scores();
+        else
+            playerTwo.scores();
+    }
+
     public String getScore(){
 
-        if (playerOne.hasSameScore(playerTwo) && !playerOne.isCloseToWin())
-        {
-            score = playerOne.tennisScore();
-            score += "-All";
+        if(playerOne.hasSameScore(playerTwo)) {
+            gameIsTied();
+            closeGameIsTied();
+        } else {
+            score = notADraw();
         }
-
-        if (playerOne.hasSameScore(playerTwo) && playerOne.isCloseToEndOfGame()) {
-
-            score = TennisScore.DEUCE.toString();
-        }
-
-        if(!playerOne.hasSameScore(playerTwo)) {
-
-            if ( playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
-                score = playerOne.gameOnTheLineVs(playerTwo);
-            } else {
-                score = playerOne.tennisScore() + "-" + playerTwo.tennisScore();
-            }
-        }
-
         return score;
     }
 
-    public void P1Score(){
-        playerOne.scores();
+    private void gameIsTied() {
+        score = playerOne.tennisScore();
+        score += "-All";
     }
 
-    public void P2Score(){
-        playerTwo.scores();
+    private void closeGameIsTied() {
+        if (playerOne.isCloseToEndOfGame()) {
+            score = TennisScore.DEUCE.toString();
+        }
     }
 
-    public void wonPoint(String player) {
-        if (playerOne.isNamed(player))
-            P1Score();
-        else
-            P2Score();
+    private String notADraw() {
+        if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
+            return playerOne.gameOnTheLineVs(playerTwo);
+        } else {
+            return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
+        }
     }
 }
