@@ -21,11 +21,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerOne.isNamed(playerName)) {
-            playerOne.scores();
-        } else {
-            playerTwo.scores();
-        }
+        aPlayerHasScored(playerName, playerOne);
+        aPlayerHasScored(playerName, playerTwo);
+    }
+
+    private void aPlayerHasScored(String playerName, Player player) {
+        if(player.isNamed(playerName))
+            player.scores();
     }
 
     private String playersHaveSameScore() {
