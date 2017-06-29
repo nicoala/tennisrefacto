@@ -1,30 +1,27 @@
 public class TennisGame2 implements TennisGame
 {
-    String score = "";
+    private Player playerOne;
+    private Player playerTwo;
 
-    Player playerOne;
-    Player playerTwo;
-
-    public TennisGame2(String player1Name, String player2Name) {
+    TennisGame2(String player1Name, String player2Name) {
         playerOne = new Player(player1Name, 0);
         playerTwo = new Player(player2Name, 0);
     }
 
     public void wonPoint(String player) {
-        if (playerOne.isNamed(player))
+        if (playerOne.isNamed(player)) {
             playerOne.scores();
-        else
+        } else {
             playerTwo.scores();
+        }
     }
 
     public String getScore(){
-
         if(playerOne.hasSameScore(playerTwo)) {
-            score = closeGameIsTied();
+            return closeGameIsTied();
         } else {
-            score = notADraw();
+            return notADraw();
         }
-        return score;
     }
 
     private String closeGameIsTied() {
@@ -36,9 +33,7 @@ public class TennisGame2 implements TennisGame
     }
 
     private String gameIsTied() {
-        String gameScore = playerOne.tennisScore();
-        gameScore += "-All";
-        return gameScore;
+        return playerOne.tennisScore() + "-All";
     }
 
     private String notADraw() {

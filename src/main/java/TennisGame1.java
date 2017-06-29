@@ -42,5 +42,4 @@ public class TennisGame1 implements TennisGame {
         return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
 
     }
-
 }
