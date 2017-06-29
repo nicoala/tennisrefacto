@@ -3,32 +3,32 @@ public class Player {
     private String name;
     private int score;
 
-    public Player(String name, int score) {
+    Player(String name, int score) {
         this.name = name;
         this.score = score;
     }
 
-    public void scores() {
+    void scores() {
         score++;
     }
 
-    public boolean isNamed(String playerName) {
+    boolean isNamed(String playerName) {
         return name.equals(playerName);
     }
 
-    public boolean hasSameScore(Player otherPlayer) {
+    boolean hasSameScore(Player otherPlayer) {
         return score == otherPlayer.score;
     }
 
-    public boolean isCloseToEndOfGame() {
+    boolean isCloseToEndOfGame() {
         return score >= 3;
     }
 
-    public boolean isCloseToWin() {
+    boolean isCloseToWin() {
         return score >= 4;
     }
 
-    public String gameOnTheLineVs(Player otherPlayer) {
+    String gameOnTheLineVs(Player otherPlayer) {
         if(Math.abs(score - otherPlayer.score) == 1) {
             return "Advantage " + hasAdvantage(otherPlayer);
         } else {
@@ -44,7 +44,7 @@ public class Player {
         }
     }
 
-    public String tennisScore() {
+    String tennisScore() {
         return TennisScore.values()[score].toString();
     }
 

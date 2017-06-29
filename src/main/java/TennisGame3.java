@@ -9,10 +9,10 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getScore() {
-        if (!playerOne.isCloseToWin() && !playerTwo.isCloseToWin()) {
-            return gameBeforeFirstTie();
-        } else {
+        if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
             return onePlayerIsCloseToWin();
+        } else {
+            return gameBeforeFirstTie();
         }
     }
 

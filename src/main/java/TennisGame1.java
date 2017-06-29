@@ -23,39 +23,30 @@ public class TennisGame1 implements TennisGame {
         String score = "";
 
         if (playerOne.hasSameScore(playerTwo)) {
-            score = playersHaveSameScore(score);
+            return playersHaveSameScore(score);
         } else if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
-            score = playerOne.gameOnTheLineVs(playerTwo);
+            return playerOne.gameOnTheLineVs(playerTwo);
         } else {
-            score = formatGameScore(score);
+            return formatGameScore(score);
         }
-
-        return score;
     }
 
     private String playersHaveSameScore(String score) {
 
         if (playerOne.isCloseToEndOfGame()) {
-            score = TennisScore.DEUCE.toString();
+            return TennisScore.DEUCE.toString();
         } else {
-            score = calculateScore(score, playerOne);
-            score += ALL_PLAYERS_HAVE_SAME_SCORE;
+            return calculateScore(score, playerOne) + ALL_PLAYERS_HAVE_SAME_SCORE;
         }
-
-        return score;
     }
 
     private String formatGameScore(String score) {
-
-        score = calculateScore(score, playerOne);
-        score += "-";
-        return calculateScore(score, playerTwo);
+        return calculateScore(score, playerOne) + "-" + calculateScore(score, playerTwo);
 
     }
 
     private String calculateScore(String score, Player player) {
-        score += player.tennisScore();
-        return score;
+        return score + player.tennisScore();
     }
 
 }
