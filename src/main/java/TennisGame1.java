@@ -1,10 +1,9 @@
 public class TennisGame1 implements TennisGame {
 
-    String score = "";
     private Player playerOne;
     private Player playerTwo;
 
-    public static final String ALL_PLAYERS_HAVE_SAME_SCORE = "-All";
+    private static final String ALL_PLAYERS_HAVE_SAME_SCORE = "-All";
 
     TennisGame1(String playerOneName, String playerTwoName) {
         playerOne = new Player(playerOneName, 0);
@@ -30,21 +29,16 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String playersHaveSameScore() {
-
         if (playerOne.isCloseToEndOfGame()) {
             return TennisScore.DEUCE.toString();
         } else {
-            return calculateScore(playerOne) + ALL_PLAYERS_HAVE_SAME_SCORE;
+            return playerOne.tennisScore() + ALL_PLAYERS_HAVE_SAME_SCORE;
         }
     }
 
     private String formatGameScore() {
-        return calculateScore(playerOne) + "-" + calculateScore(playerTwo);
+        return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
 
-    }
-
-    private String calculateScore(Player player) {
-        return score + player.tennisScore();
     }
 
 }
