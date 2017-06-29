@@ -11,7 +11,7 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         if (playerOne.hasSameScore(playerTwo)) {
             return playersHaveSameScore();
-        } else if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
+        } else if (playerOne.isAboutToWin() || playerTwo.isAboutToWin()) {
             return playerOne.gameOnTheLineVs(playerTwo);
         } else {
             return formatGameScore();
@@ -19,13 +19,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        aPlayerHasScored(playerName, playerOne);
-        aPlayerHasScored(playerName, playerTwo);
-    }
-
-    private void aPlayerHasScored(String playerName, Player player) {
-        if(player.isNamed(playerName))
-            player.scores();
+        Score.aPlayerScores(playerName, playerOne, playerTwo);
     }
 
     private String playersHaveSameScore() {

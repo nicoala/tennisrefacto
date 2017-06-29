@@ -12,7 +12,15 @@ class Score {
         return tennisScore + "-All";
     }
 
-    static String gameEnding(int difference) {
-        return (difference == 1) ? "Advantage " : "Win for ";
+    static String gameEnding(int difference, String name) {
+        return (difference == 1) ? "Advantage " + name : "Win for " + name;
+    }
+
+    static void aPlayerScores(String playerName, Player playerOne, Player playerTwo) {
+        if (playerOne.isNamed(playerName)) {
+            playerOne.scores();
+        } else {
+            playerTwo.scores();
+        }
     }
 }
