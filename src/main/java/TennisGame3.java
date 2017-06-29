@@ -9,18 +9,10 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getScore() {
-
         if (!playerOne.isCloseToWin() && !playerTwo.isCloseToWin()) {
-
             return gameBeforeFirstTie();
-
         } else {
-
-            if (playersTied()) {
-                return TennisScore.DEUCE.toString();
-            }
-
-            return playerOne.gameOnTheLineVs(playerTwo);
+            return onePlayerIsCloseToWin();
         }
     }
 
@@ -32,18 +24,19 @@ public class TennisGame3 implements TennisGame {
         }
     }
 
-    private boolean playersTied() {
-        if (playerOne.hasSameScore(playerTwo)) {
-            return true;
+    private String onePlayerIsCloseToWin() {
+        if (playersTied()) {
+            return TennisScore.DEUCE.toString();
         }
-        return false;
+        return playerOne.gameOnTheLineVs(playerTwo);
+    }
+
+    private boolean playersTied() {
+        return playerOne.hasSameScore(playerTwo);
     }
 
     private boolean playersTiedForFirstTime() {
-        if(playerOne.hasSameScore(playerTwo) && playerOne.isCloseToEndOfGame()) {
-            return true;
-        }
-        return false;
+        return playerOne.hasSameScore(playerTwo) && playerOne.isCloseToEndOfGame();
     }
 
     private String formatGameScore() {
