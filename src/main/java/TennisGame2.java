@@ -26,21 +26,21 @@ public class TennisGame2 implements TennisGame
 
     private String closeGameIsTied() {
         if (playerOne.isCloseToEndOfGame()) {
-            return TennisScore.DEUCE.toString();
+            return Score.deuce();
         } else {
             return gameIsTied();
         }
     }
 
     private String gameIsTied() {
-        return playerOne.tennisScore() + "-All";
+        return Score.playersTiedAt(playerOne.tennisScore());
     }
 
     private String notADraw() {
         if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
             return playerOne.gameOnTheLineVs(playerTwo);
         } else {
-            return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
+            return Score.format(playerOne, playerTwo);
         }
     }
 }

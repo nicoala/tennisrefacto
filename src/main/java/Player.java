@@ -1,15 +1,15 @@
 public class Player {
 
     private String name;
-    private int score;
+    private int pointsScored;
 
-    Player(String name, int score) {
+    Player(String name, int pointsScored) {
         this.name = name;
-        this.score = score;
+        this.pointsScored = pointsScored;
     }
 
     void scores() {
-        score++;
+        pointsScored++;
     }
 
     boolean isNamed(String playerName) {
@@ -17,35 +17,28 @@ public class Player {
     }
 
     boolean hasSameScore(Player otherPlayer) {
-        return score == otherPlayer.score;
+        return pointsScored == otherPlayer.pointsScored;
     }
 
     boolean isCloseToEndOfGame() {
-        return score >= 3;
+        return pointsScored >= 3;
     }
 
     boolean isCloseToWin() {
-        return score >= 4;
+        return pointsScored >= 4;
     }
 
     String gameOnTheLineVs(Player otherPlayer) {
-        if(Math.abs(score - otherPlayer.score) == 1) {
-            return "Advantage " + hasAdvantage(otherPlayer);
-        } else {
-            return "Win for " + hasAdvantage(otherPlayer);
-        }
+        int difference = Math.abs(pointsScored - otherPlayer.pointsScored);
+        return Score.gameEnding(difference) + hasAdvantage(otherPlayer);
     }
 
     private String hasAdvantage(Player otherPlayer) {
-        if (score > otherPlayer.score) {
-            return name;
-        } else {
-            return otherPlayer.name;
-        }
+        return (pointsScored > otherPlayer.pointsScored) ? name : otherPlayer.name;
     }
 
     String tennisScore() {
-        return TennisScore.values()[score].toString();
+        return TennisScore.values()[pointsScored].toString();
     }
 
 }

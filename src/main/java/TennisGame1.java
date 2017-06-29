@@ -3,8 +3,6 @@ public class TennisGame1 implements TennisGame {
     private Player playerOne;
     private Player playerTwo;
 
-    private static final String ALL_PLAYERS_HAVE_SAME_SCORE = "-All";
-
     TennisGame1(String playerOneName, String playerTwoName) {
         playerOne = new Player(playerOneName, 0);
         playerTwo = new Player(playerTwoName, 0);
@@ -32,14 +30,14 @@ public class TennisGame1 implements TennisGame {
 
     private String playersHaveSameScore() {
         if (playerOne.isCloseToEndOfGame()) {
-            return TennisScore.DEUCE.toString();
+            return Score.deuce();
         } else {
-            return playerOne.tennisScore() + ALL_PLAYERS_HAVE_SAME_SCORE;
+            return Score.playersTiedAt(playerOne.tennisScore());
         }
     }
 
     private String formatGameScore() {
-        return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
+        return Score.format(playerOne, playerTwo);
 
     }
 }

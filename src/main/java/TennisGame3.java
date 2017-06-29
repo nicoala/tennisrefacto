@@ -18,7 +18,7 @@ public class TennisGame3 implements TennisGame {
 
     private String gameBeforeFirstTie() {
         if (playersTiedForFirstTime()) {
-            return TennisScore.DEUCE.toString();
+            return Score.deuce();
         } else {
             return formatGameScore();
         }
@@ -26,7 +26,7 @@ public class TennisGame3 implements TennisGame {
 
     private String onePlayerIsCloseToWin() {
         if (playersTied()) {
-            return TennisScore.DEUCE.toString();
+            return Score.deuce();
         }
         return playerOne.gameOnTheLineVs(playerTwo);
     }
@@ -41,9 +41,9 @@ public class TennisGame3 implements TennisGame {
 
     private String formatGameScore() {
         if (playerOne.hasSameScore(playerTwo)) {
-            return playerOne.tennisScore() + "-All";
+            return Score.playersTiedAt(playerOne.tennisScore());
         } else {
-            return playerOne.tennisScore() + "-" + playerTwo.tennisScore();
+            return Score.format(playerOne, playerTwo);
         }
     }
 
@@ -53,7 +53,5 @@ public class TennisGame3 implements TennisGame {
         } else {
             playerTwo.scores();
         }
-
     }
-
 }
