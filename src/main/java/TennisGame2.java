@@ -8,12 +8,8 @@ public class TennisGame2 implements TennisGame
         playerTwo = new Player(player2Name, 0);
     }
 
-    public void wonPoint(String player) {
-        if (playerOne.isNamed(player)) {
-            playerOne.scores();
-        } else {
-            playerTwo.scores();
-        }
+    public void wonPoint(String playerName) {
+        Score.aPlayerScores(playerName, playerOne, playerTwo);
     }
 
     public String getScore(){
@@ -28,16 +24,12 @@ public class TennisGame2 implements TennisGame
         if (playerOne.isCloseToEndOfGame()) {
             return Score.deuce();
         } else {
-            return gameIsTied();
+            return Score.playersTiedAt(playerOne.tennisScore());
         }
     }
 
-    private String gameIsTied() {
-        return Score.playersTiedAt(playerOne.tennisScore());
-    }
-
     private String notADraw() {
-        if (playerOne.isCloseToWin() || playerTwo.isCloseToWin()) {
+        if (playerOne.isAboutToWin() || playerTwo.isAboutToWin()) {
             return playerOne.gameOnTheLineVs(playerTwo);
         } else {
             return Score.format(playerOne, playerTwo);

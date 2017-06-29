@@ -24,13 +24,16 @@ public class Player {
         return pointsScored >= 3;
     }
 
-    boolean isCloseToWin() {
+    boolean isAboutToWin() {
         return pointsScored >= 4;
     }
 
     String gameOnTheLineVs(Player otherPlayer) {
-        int difference = Math.abs(pointsScored - otherPlayer.pointsScored);
-        return Score.gameEnding(difference) + hasAdvantage(otherPlayer);
+        return Score.gameEnding(pointsDifference(otherPlayer), hasAdvantage(otherPlayer));
+    }
+
+    private int pointsDifference(Player otherPlayer) {
+        return Math.abs(pointsScored - otherPlayer.pointsScored);
     }
 
     private String hasAdvantage(Player otherPlayer) {
